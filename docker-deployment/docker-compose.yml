@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  user-service:
+    build:
+      context: ../backend/user
+    ports:
+      - "5000:5000"
+    env_file:
+      - ../backend/user/.env
+    environment:  # <--- Ye part add karein
+      - Rabbitmq_Host=host.docker.internal
+
+  mail-service:
+    build:
+      context: ../backend/mail
+    ports:
+      - "5001:5001"
+    env_file:
+      - ../backend/mail/.env
+    environment:  # <--- Ye part add karein
+      - Rabbitmq_Host=host.docker.internal
+
+  chat-service:
+    build:
+      context: ../backend/chat
+    ports:
+      - "5002:5002"
+    env_file:
+      - ../backend/chat/.env
+    environment:  # <--- Ye part add karein
+      - Rabbitmq_Host=host.docker.internal
+
+  frontend:
+    build:
+      context: ../frontend
+    ports:
+      - "3000:3000"
+    # env_file:
+    #   - ../frontend/.env
